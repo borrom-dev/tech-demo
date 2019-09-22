@@ -3,7 +3,7 @@ spring:
   # Database
   datasource:
     driver-class-name: org.postgresql.Driver
-    url: jdbc::postgresql://@localhost:5432/postgres_demo
+    url: jdbc:postgresql://localhost:5432/postgres_deno
     username: postgres
     password:
   # JPA properties
@@ -12,8 +12,12 @@ spring:
     show-sql: true
     database: postgresql
     database-platform: org.hibernate.dialect.PostgreSQLDialect
-    hibernate:
-      ddl-auto: none
+    properties:
+      hibernate:
+        jdbc:
+          lob:
+            non_contextual_creation: true
+        ddl-auto: update
   # Jackson
   jackson:
     serialization:
@@ -24,3 +28,6 @@ spring:
 
 server:
   port: 8080
+
+#  CREATE USER postgres SUPERUSER;
+#  CREATE DATABASE postgres WITH OWNER postgres;
