@@ -1,0 +1,26 @@
+
+spring:
+  # Database
+  datasource:
+    driver-class-name: org.postgresql.Driver
+    url: jdbc::postgresql://@localhost:5432/postgres_demo
+    username: postgres
+    password:
+  # JPA properties
+  jpa:
+    open-in-view: false
+    show-sql: true
+    database: postgresql
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
+    hibernate:
+      ddl-auto: none
+  # Jackson
+  jackson:
+    serialization:
+      WRITE_DATE_KEYS_AS_TIMESTAMPS: false
+    time-zone: UTC
+
+# Server configuration
+
+server:
+  port: 8080
