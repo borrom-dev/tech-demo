@@ -12,12 +12,13 @@ spring:
     show-sql: true
     database: postgresql
     database-platform: org.hibernate.dialect.PostgreSQLDialect
+    hibernate:
+      ddl-auto: update
     properties:
       hibernate:
         jdbc:
           lob:
             non_contextual_creation: true
-        ddl-auto: update
   # Jackson
   jackson:
     serialization:
@@ -28,6 +29,11 @@ spring:
 
 server:
   port: 8080
+
+app:
+  # SHA 512
+  jwtSecret: 5496BA5E7E9412D43E638099D3097670839FE4B6536AB2C8010261023FE859D200280EA031618A5C2E07247CD870FF18F413212B36A70A6492DC335E684F932C
+  expirationMils: 604800000
 
 #  CREATE USER postgres SUPERUSER;
 #  CREATE DATABASE postgres WITH OWNER postgres;
