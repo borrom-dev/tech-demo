@@ -1,5 +1,6 @@
 package com.angkorsuntrix.techdemo.service;
 
+import com.angkorsuntrix.techdemo.entity.ChoiceVoteCount;
 import com.angkorsuntrix.techdemo.entity.Poll;
 import com.angkorsuntrix.techdemo.entity.User;
 import com.angkorsuntrix.techdemo.entity.Vote;
@@ -104,7 +105,7 @@ public class PollService {
     private Map<Long, Long> getPollUserVoteMap(UserPrincipal currentUser, List<Long> pollIds) {
         // Retrieve Votes done by the logged in user to the given pollIds
         Map<Long, Long> pollUserVoteMap = null;
-        if(currentUser != null) {
+        if (currentUser != null) {
             List<Vote> userVotes = voteRepository.findByUserIdAndPollIdIn(currentUser.getId(), pollIds);
 
             pollUserVoteMap = userVotes.stream()
@@ -114,19 +115,30 @@ public class PollService {
     }
 
     private Map<Long, Long> getChoiceVoteMap(UserPrincipal currentUser, List<Long> pollIds) {
-        return null;
+        // Retrieve Votes done by the logged in user to the given pollIds
+        Map<Long, Long> pollUserVoteMap = null;
+        if(currentUser != null) {
+            List<Vote> userVotes = voteRepository.findByUserIdAndPollIdIn(currentUser.getId(), pollIds);
+
+            pollUserVoteMap = userVotes.stream()
+                    .collect(Collectors.toMap(vote -> vote.getPoll().getId(), vote -> vote.getChoice().getId()));
+        }
+        return pollUserVoteMap;
     }
 
     private Map<Long, Long> getChoiceVoteCountMap(List<Long> pollIds) {
-        return null;
+        List<ChoiceVoteCount> votes = voteRepository.countByPollIdInGroupByChoiceId(pollIds);
+        Map<Long, Long> choiceVotesMap = votes.stream()
+                .collect(Collectors.toMap(ChoiceVoteCount::getChoiceId, ChoiceVoteCount::getVoteCount));
+        return choiceVotesMap;
     }
 
     private void validatePageNumberAndSize(int page, int size) {
-        if(page < 0) {
+        if (page < 0) {
             throw new BadRequestException("Page number cannot be less than zero.");
         }
 
-        if(size > Constants.MAX_PAGE_SIZE) {
+        if (size > Constants.MAX_PAGE_SIZE) {
             throw new BadRequestException("Page size must not be greater than " + Constants.MAX_PAGE_SIZE);
         }
     }
