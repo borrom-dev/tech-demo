@@ -6,7 +6,7 @@ import javax.validation.constraints.Size;
 
 @Entity
 @Table(name = "questions")
-public class Question extends BaseEntity {
+public class Question extends DateAudit {
     @Id
     @GeneratedValue(generator = "question_generator")
     @SequenceGenerator(
