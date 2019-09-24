@@ -1,5 +1,6 @@
 package com.angkorsuntrix.techdemo.security;
 
+import com.angkorsuntrix.techdemo.payload.AccessToken;
 import io.jsonwebtoken.*;
 import io.jsonwebtoken.security.SignatureException;
 import org.slf4j.Logger;
@@ -21,16 +22,17 @@ public class JwtTokenProvider {
     @Value("${app.expirationMils}")
     private int expirationInMils;
 
-    public String generateToken(Authentication authentication) {
+    public AccessToken generateToken(Authentication authentication) {
         UserPrincipal principal = (UserPrincipal) authentication.getPrincipal();
         Date now = new Date();
         Date expirationDate = new Date(now.getTime() + expirationInMils);
-        return Jwts.builder()
+        String jwt = Jwts.builder()
                 .setSubject(Long.toString(principal.getId()))
                 .setIssuedAt(new Date())
                 .setExpiration(expirationDate)
                 .signWith(SignatureAlgorithm.HS512, jwtSecret)
                 .compact();
+        return new AccessToken(jwt, expirationDate.getTime());
     }
 
     public Long getUserFromJwt(String token) {
