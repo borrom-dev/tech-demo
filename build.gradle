@@ -26,9 +26,7 @@ dependencies {
 	implementation 'org.postgresql:postgresql'
 
 	implementation 'io.jsonwebtoken:jjwt-impl:0.10.7'
-	implementation('io.jsonwebtoken:jjwt-orgjson:0.10.7') {
-		exclude group: 'org.json', module: 'json' //provided by Android natively
-	}
+	implementation('io.jsonwebtoken:jjwt-orgjson:0.10.7')
 
 	developmentOnly 'org.springframework.boot:spring-boot-devtools'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'

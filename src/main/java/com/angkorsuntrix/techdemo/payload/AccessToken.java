@@ -5,6 +5,7 @@ public class AccessToken {
     private String token;
     private String tokenType = "Bearer";
 
+
     public AccessToken(String token) {
         this.token = token;
     }
