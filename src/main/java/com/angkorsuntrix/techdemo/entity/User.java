@@ -18,7 +18,7 @@ import java.util.Set;
                 "email"
         })
 })
-public class User extends BaseEntity {
+public class User extends DateAudit {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;

@@ -8,7 +8,7 @@ import javax.persistence.*;
 
 @Entity
 @Table(name = "answers")
-public class Answer extends BaseEntity {
+public class Answer extends DateAudit {
 
     @Id
     @GeneratedValue(generator = "answer_generator")

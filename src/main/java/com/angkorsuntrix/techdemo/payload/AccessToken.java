@@ -4,10 +4,12 @@ public class AccessToken {
 
     private String token;
     private String tokenType = "Bearer";
+    private Long expireIn;
 
 
-    public AccessToken(String token) {
+    public AccessToken(String token, Long expireIn) {
         this.token = token;
+        this.expireIn = expireIn;
     }
 
     public String getToken() {
@@ -24,5 +26,13 @@ public class AccessToken {
 
     public void setTokenType(String tokenType) {
         this.tokenType = tokenType;
+    }
+
+    public Long getExpireIn() {
+        return expireIn;
+    }
+
+    public void setExpireIn(Long expireIn) {
+        this.expireIn = expireIn;
     }
 }
